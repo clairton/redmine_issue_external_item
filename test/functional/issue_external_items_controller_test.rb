@@ -43,7 +43,7 @@ class IssueExternalItemsControllerTest < ActionController::TestCase
     # log_user('admin', 'admin')
     @request.session[:user_id] = 1
 
-    xhr :post, :done, is_done: true, external_item_item_id: '1'
+    xhr :post, :done, is_done: true, external_item_id: '1'
     assert_response :success
     assert_equal true, IssueExternalItem.find(1).is_done
   end
@@ -52,7 +52,7 @@ class IssueExternalItemsControllerTest < ActionController::TestCase
     # log_user('admin', 'admin')
     @request.session[:user_id] = 5
 
-    xhr :post, :done, is_done: true, external_item_item_id: '1'
+    xhr :post, :done, is_done: true, external_item_id: '1'
     assert_response 403
   end
 

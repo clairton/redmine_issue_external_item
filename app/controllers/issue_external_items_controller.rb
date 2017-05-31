@@ -1,6 +1,26 @@
 class IssueExternalItemsController < ApplicationController
 
-  before_action :find_external_item_item
+  before_action :find_external_item
+
+  def search()
+    query = "SELECT projects.id as key, projects.name as description FROM projects";
+
+    if params[:description]
+       query << " where lower(projects.name) like lower('%#{params[:description]}%' )"
+    end
+    query << " order by description limit 10"
+
+    @items = []
+
+    ActiveRecord::Base.connection.execute(query).each do |record|
+      @items << {key: record['key'], description: record['description']}
+    end
+
+    respond_to do |format|
+      format.html { render json: @items.to_json}
+      format.json { render json: @items.to_json }
+    end
+  end
 
   def done
     (render_403; return false) unless User.current.allowed_to?(:done_external_items, @external_item_item.issue.project)
@@ -49,9 +69,11 @@ class IssueExternalItemsController < ApplicationController
 
   private
 
-  def find_external_item_item
-    @external_item_item = IssueExternalItem.find(params[:external_item_item_id])
-    @project        = @external_item_item.issue.project
-  end
+  def find_external_item
+      if params[:external_item_id]
+        @external_item_item = IssueExternalItem.find(params[:external_item_id])
+        @project        = @external_item_item.issue.project
+      end
+   end
 
 end
