@@ -4,25 +4,39 @@ window.onload = function() {
 
 var Redmine = Redmine || {};
 
-$.fn.issue_check_list = function(element, input, button, fileInput) {};
+$.fn.issue_check_list = function(element, input, key, quantity, button, fileInput) {};
 
 Redmine.IssueChecklist = jQuery.klass({
-  init: function(element, input, button, fileInput) {
+  init: function(element, input, key, quantity, button, fileInput) {
     this.element   = $('#' + element);
     this.input     = $('#' + input);
+    this.key     = $('#' + key);
+    this.quantity     = $('#' + quantity);
     this.button    = $('#' + button);
     this.fileInput = $('#' + fileInput);
     this.checklist = {};
     this.button.click($.proxy(this.readChecklist, this));
     this.fileInput.on('change', $.proxy(this.onFileInputChange, this));
+
     this.input.keypress($.proxy(this.onKeyPress, this));
     this.input.on('dragover', $.proxy(this.onDragOver, this));
     this.input.on('drop', $.proxy(this.onDrop, this));
+
+
+    this.key.keypress($.proxy(this.onKeyPress, this));
+    this.key.on('dragover', $.proxy(this.onDragOver, this));
+    this.key.on('drop', $.proxy(this.onDrop, this));
+
+    this.quantity.keypress($.proxy(this.onKeyPress, this));
+    this.quantity.on('dragover', $.proxy(this.onDragOver, this));
+    this.quantity.on('drop', $.proxy(this.onDrop, this));
   },
 
   readChecklist: function(event) {
-    this.addChecklistItem(this.input.val());
+    this.addChecklistItem(this.input.val(), this.key.val(), this.quantity.val());
     this.input.val('');
+    this.key.val('');
+    this.quantity.val('');
     event.preventDefault();
   },
 
@@ -33,21 +47,38 @@ Redmine.IssueChecklist = jQuery.klass({
     }
   },
 
-  addChecklistItem: function(сhecklistItem, isDone, id) {
-    if ($.isEmptyObject(сhecklistItem)) {
+  addChecklistItem: function(сhecklistItem, key, quantity, isDone, id) {
+    if ($.isEmptyObject(сhecklistItem) || $.isEmptyObject(key) || $.isEmptyObject(quantity)) {
       return;
     }
 
     isDone = isDone || false;
 
     var hidden = $(document.createElement('input'));
-    hidden.attr({'type': 'hidden', 'name': 'check_list_items[][subject]', 'value':$.trim(сhecklistItem)});
+    hidden.attr({'type': 'hidden', 'name': 'check_list_items[][subject]', 'value': $.trim(сhecklistItem)});
+
+    var keyInput = $(document.createElement('input'));
+    keyInput.attr({'type': 'hidden', 'name': 'check_list_items[][key]', 'value': $.trim(key)});
+
+    var quantityInput = $(document.createElement('input'));
+    quantityInput.attr({'type': 'hidden', 'name': 'check_list_items[][quantity]', 'value': $.trim(quantity)});
+
     var button = $(document.createElement('span'));
     button.attr({'href': '#', 'class': 'delete icon icon-del' });
     var checkbox = $(document.createElement('input'));
     checkbox.attr({'type': 'checkbox', 'name': 'check_list_items[][is_done]', 'value': '1', 'id': 'checklist_item_checkbox_'+id});
     var label  = $(document.createElement('span'));
-    label.attr({ 'class': 'checklist-item' }).append(hidden).append(checkbox).append($.trim(сhecklistItem)).append(button);
+    label.attr({ 'class': 'checklist-item' })
+                  .append(hidden)
+                  .append(keyInput)
+                  .append(quantityInput)
+                  .append(checkbox)
+                  .append($.trim(key))
+                  .append(' - ')
+                  .append($.trim(сhecklistItem))
+                  .append(' - ')
+                  .append($.trim(quantity))
+                  .append(button);
 
     if (isDone == true) {
       checkbox.attr('checked', 'checked');
@@ -75,7 +106,7 @@ Redmine.IssueChecklist = jQuery.klass({
 
   addChecklist: function(checklist) {
     for (var i = 0; i < checklist.length; i++) {
-      this.addChecklistItem(checklist[i]['subject'], checklist[i]['is_done'], checklist[i]['id']);
+      this.addChecklistItem(checklist[i]['subject'], checklist[i]['key'], checklist[i]['quantity'], checklist[i]['is_done'], checklist[i]['id']);
     }
   },
 
@@ -101,6 +132,9 @@ Redmine.IssueChecklist = jQuery.klass({
   },
 
   onFileInputChange: function(event) {
+    if(!event.target.files){
+      return;
+    }
     var file = event.target.files[0];
     if (file) {
       this.parseMultiLineFile(file);
@@ -133,9 +167,8 @@ Redmine.IssueChecklist = jQuery.klass({
   }
 });
 
-function observeIssueChecklistField(element, input, add_button, fileInput) {
-  issueChecklist = new Redmine.IssueChecklist(element, input,
-                                              add_button, fileInput);
+function observeIssueChecklistField(element, input, key, quantity, add_button, fileInput) {
+  issueChecklist = new Redmine.IssueChecklist(element, input, key, quantity, add_button, fileInput);
 }
 
 function createIssueChecklist(checkList) {

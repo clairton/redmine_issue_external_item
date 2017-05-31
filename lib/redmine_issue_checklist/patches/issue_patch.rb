@@ -32,7 +32,7 @@ module RedmineIssueChecklist
 
           checklist.destroy_all
           checklist << checklist_items.uniq.collect do |cli|
-            IssueChecklist.new(is_done: cli[:is_done], subject: cli[:subject])
+            IssueChecklist.new(is_done: cli[:is_done], subject: cli[:subject], key: cli[:key], quantity: cli[:quantity])
           end
 
           new_checklist = checklist.collect(&:info).join(', ')

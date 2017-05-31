@@ -5,19 +5,25 @@ window.onload = function () {
 var Redmine = Redmine || {};
 
 Redmine.IssueChecklist = Class.create({
-  initialize: function (element, input, button) {
+  initialize: function (element, key, quantity, input, button) {
     this.element   = $(element);
     this.input     = $(input);
+    this.key     = $(key);
+    this.quantity     = $(quantity);
     this.button    = $(button);
     this.checklist = new Hash();
 
     Event.observe(this.button, 'click', this.readChecklist.bindAsEventListener(this));
     Event.observe(this.input, 'keypress', this.onKeyPress.bindAsEventListener(this));
+    Event.observe(this.key, 'keypress', this.onKeyPress.bindAsEventListener(this));
+    Event.observe(this.quantity, 'keypress', this.onKeyPress.bindAsEventListener(this));
   },
 
   readChecklist: function (event) {
-    this.addChecklistItem(this.input.value);
+    this.addChecklistItem(this.input.value, this.input.key, this.quantity.value);
     this.input.value = '';
+    this.key.value = '';
+    this.quantity.value = '';
     Event.stop(event);
   },
 
@@ -28,8 +34,8 @@ Redmine.IssueChecklist = Class.create({
     }
   },
 
-  addChecklistItem: function (сhecklistItem, isDone) {
-    if (сhecklistItem.blank()) return;
+  addChecklistItem: function (сhecklistItem, key, quantity, isDone) {
+    if (сhecklistItem.blank() || key.blank() || quantity.blank()) return;
 
     isDone = isDone || false;
 
@@ -38,9 +44,24 @@ Redmine.IssueChecklist = Class.create({
       'name': 'check_list_items[][subject]',
       'value': сhecklistItem.strip()
     });
+
+    var keyInput   = new Element('input', {
+      'type': 'hidden',
+      'name': 'check_list_items[][key]',
+      'value': key
+    });
+
+    var quantityInput   = new Element('input', {
+      'type': 'hidden',
+      'name': 'check_list_items[][quantity]',
+      'value': quantity
+    });
+
+    var label = key + ' - ' + сhecklistItem + ' - ' + quantity; 
+
     var button   = new Element('span', {'href': '#', 'class': 'delete icon icon-del'});
     var checkbox = new Element('input', {'type': 'checkbox', 'name': 'check_list_items[][is_done]', 'value': '1'});
-    var label    = new Element('span', {'class': 'checklist-item'}).insert(hidden).insert(checkbox).insert(сhecklistItem.strip()).insert(button);
+    var label    = new Element('span', {'class': 'checklist-item'}).insert(hidden).insert(keyInput).insert(quantityInput).insert(checkbox).insert(label.strip()).insert(button);
 
     if (isDone == true) {
       checkbox.setAttribute('checked', 'checked');
@@ -69,7 +90,7 @@ Redmine.IssueChecklist = Class.create({
 
   addChecklist: function (checklist) {
     for (var i = 0; i < checklist.length; i++) {
-      this.addChecklistItem(checklist[i]['subject'], checklist[i]['is_done']);
+      this.addChecklistItem(checklist[i]['subject'], checklist[i]['key'], checklist[i]['quantity'], checklist[i]['is_done']);
     }
   },
 
@@ -79,13 +100,14 @@ Redmine.IssueChecklist = Class.create({
 
 });
 
-function observeIssueChecklistField(element, input, add_button) {
-  issueChecklist = new Redmine.IssueChecklist(element, input, add_button);
+function observeIssueChecklistField(element, input, key, quantity, add_button) {
+  issueChecklist = new Redmine.IssueChecklist(element, input, key, quantity, add_button);
 }
 
 function createIssueChecklist(checkList) {
   issueChecklist.addChecklist(checkList);
 }
+
 function checklist_item_done(elem, url, id) {
   new Ajax.Request(url,
     {

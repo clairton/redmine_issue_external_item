@@ -4,13 +4,19 @@ one:
   is_done: false
   subject: First todo
   issue_id: 1
+  key: 123
+  quantity: 1
 two:
   id: 2
   is_done: false
   subject: Second todo
   issue_id: 1
+  key: 456
+  quantity: 2
 three:
   id: 3
   is_done: true
   subject: Third todo
   issue_id: 2
+  key: 489
+  quantity: 3.3
