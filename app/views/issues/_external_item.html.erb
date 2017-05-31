@@ -1,0 +1,24 @@
+<% if !@issue.blank? && @issue.external_item.any? && User.current.allowed_to?(:view_external_items, @project) %>
+
+  <hr/>
+  <div id="issue_external_item">
+    <p><strong><%= l(:label_issue_external_item_plural) %></strong></p>
+
+    <ul id="issue_external_item_items">
+      <% @issue.external_item.each do |external_item_item| %>
+        <%= render partial: 'issue_external_items/external_item_item', object: external_item_item %>
+      <% end %>
+    </ul>
+  </div>
+
+<% end %>
+
+<% content_for :header_tags do %>
+  <% if Redmine::VERSION::MAJOR == 3 || (Redmine::VERSION::MAJOR == 2 && Redmine::VERSION::MINOR >= 1) %>
+    <%= javascript_include_tag 'jquery.klass.js', plugin: 'redmine_issue_external_item' %>
+    <%= javascript_include_tag 'issue_external_item.jquery.js', plugin: 'redmine_issue_external_item' %>
+  <% else %>
+    <%= javascript_include_tag 'issue_external_item.prototype.js', plugin: 'redmine_issue_external_item' %>
+  <% end %>
+  <%= stylesheet_link_tag :issue_external_item, plugin: 'redmine_issue_external_item' %>
+<% end %>

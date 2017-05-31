@@ -17,27 +17,27 @@
 # You should have received a copy of the GNU General Public License
 # along with redmine_tags.  If not, see <http://www.gnu.org/licenses/>.
 
-module RedmineIssueChecklist
+module RedmineIssueExternalItem
   module Hooks
     class ModelIssueHook < Redmine::Hook::ViewListener
 
       def controller_issues_edit_before_save(context={})
-        if User.current.allowed_to?(:edit_checklists, context[:issue].project)
-          save_checklist_to_issue(context, RedmineIssueChecklist.settings[:save_log])
+        if User.current.allowed_to?(:edit_external_items, context[:issue].project)
+          save_external_item_to_issue(context, RedmineIssueExternalItem.settings[:save_log])
         end
       end
 
       def controller_issues_new_after_save(context={})
-        if User.current.allowed_to?(:edit_checklists, context[:issue].project)
-          save_checklist_to_issue(context, false)
+        if User.current.allowed_to?(:edit_external_items, context[:issue].project)
+          save_external_item_to_issue(context, false)
           context[:issue].save
         end
       end
 
-      def save_checklist_to_issue(context, create_journal)
+      def save_external_item_to_issue(context, create_journal)
         issue = context[:issue]
-        checklist_items = context[:params] && context[:params][:check_list_items]
-        issue.update_checklist_items(checklist_items, create_journal) if issue && checklist_items
+        external_item_items = context[:params] && context[:params][:check_list_items]
+        issue.update_external_item_items(external_item_items, create_journal) if issue && external_item_items
       end
 
     end

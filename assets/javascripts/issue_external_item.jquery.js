@@ -1,12 +1,12 @@
 window.onload = function() {
-  $('#checklist_form_items').sortable();
+  $('#external_item_form_items').sortable();
 };
 
 var Redmine = Redmine || {};
 
 $.fn.issue_check_list = function(element, input, key, quantity, button, fileInput) {};
 
-Redmine.IssueChecklist = jQuery.klass({
+Redmine.IssueExternalItem = jQuery.klass({
   init: function(element, input, key, quantity, button, fileInput) {
     this.element   = $('#' + element);
     this.input     = $('#' + input);
@@ -14,8 +14,8 @@ Redmine.IssueChecklist = jQuery.klass({
     this.quantity     = $('#' + quantity);
     this.button    = $('#' + button);
     this.fileInput = $('#' + fileInput);
-    this.checklist = {};
-    this.button.click($.proxy(this.readChecklist, this));
+    this.external_item = {};
+    this.button.click($.proxy(this.readExternalItem, this));
     this.fileInput.on('change', $.proxy(this.onFileInputChange, this));
 
     this.input.keypress($.proxy(this.onKeyPress, this));
@@ -32,8 +32,8 @@ Redmine.IssueChecklist = jQuery.klass({
     this.quantity.on('drop', $.proxy(this.onDrop, this));
   },
 
-  readChecklist: function(event) {
-    this.addChecklistItem(this.input.val(), this.key.val(), this.quantity.val());
+  readExternalItem: function(event) {
+    this.addExternalItemItem(this.input.val(), this.key.val(), this.quantity.val());
     this.input.val('');
     this.key.val('');
     this.quantity.val('');
@@ -42,12 +42,12 @@ Redmine.IssueChecklist = jQuery.klass({
 
   onKeyPress: function(event) {
     if (13 == event.keyCode) {
-      this.readChecklist(event);
+      this.readExternalItem(event);
       event.preventDefault();
     }
   },
 
-  addChecklistItem: function(сhecklistItem, key, quantity, isDone, id) {
+  addExternalItemItem: function(сhecklistItem, key, quantity, isDone, id) {
     if ($.isEmptyObject(сhecklistItem) || $.isEmptyObject(key) || $.isEmptyObject(quantity)) {
       return;
     }
@@ -66,9 +66,9 @@ Redmine.IssueChecklist = jQuery.klass({
     var button = $(document.createElement('span'));
     button.attr({'href': '#', 'class': 'delete icon icon-del' });
     var checkbox = $(document.createElement('input'));
-    checkbox.attr({'type': 'checkbox', 'name': 'check_list_items[][is_done]', 'value': '1', 'id': 'checklist_item_checkbox_'+id});
+    checkbox.attr({'type': 'checkbox', 'name': 'check_list_items[][is_done]', 'value': '1', 'id': 'external_item_item_checkbox_'+id});
     var label  = $(document.createElement('span'));
-    label.attr({ 'class': 'checklist-item' })
+    label.attr({ 'class': 'external_item-item' })
                   .append(hidden)
                   .append(keyInput)
                   .append(quantityInput)
@@ -82,36 +82,36 @@ Redmine.IssueChecklist = jQuery.klass({
 
     if (isDone == true) {
       checkbox.attr('checked', 'checked');
-      label.addClass('is-done-checklist-item');
+      label.addClass('is-done-external_item-item');
     }
 
-    this.checklist[сhecklistItem] = 1;
+    this.external_item[сhecklistItem] = 1;
     this.element.append(label);
 
     button.click($.proxy(function(){
-      this.checklist[сhecklistItem] = null;
+      this.external_item[сhecklistItem] = null;
       label.remove();
       // Event.stop(event);
     }, this));
 
     checkbox.click($.proxy(function(){
       if (checkbox.is(':checked')) {
-        label.addClass('is-done-checklist-item');
+        label.addClass('is-done-external_item-item');
       } else {
-        label.removeClass('is-done-checklist-item');
+        label.removeClass('is-done-external_item-item');
       };
     }, this));
 
   },
 
-  addChecklist: function(checklist) {
-    for (var i = 0; i < checklist.length; i++) {
-      this.addChecklistItem(checklist[i]['subject'], checklist[i]['key'], checklist[i]['quantity'], checklist[i]['is_done'], checklist[i]['id']);
+  addExternalItem: function(external_item) {
+    for (var i = 0; i < external_item.length; i++) {
+      this.addExternalItemItem(external_item[i]['subject'], external_item[i]['key'], external_item[i]['quantity'], external_item[i]['is_done'], external_item[i]['id']);
     }
   },
 
-  getChecklist: function() {
-    return this.checklist;
+  getExternalItem: function() {
+    return this.external_item;
   },
 
   onDragOver: function(event) {
@@ -156,9 +156,9 @@ Redmine.IssueChecklist = jQuery.klass({
         return !$.isEmptyObject(el);
       });
 
-      if (lines.length && window.confirm('Import ' + lines.length + ' checklist items?')) {
+      if (lines.length && window.confirm('Import ' + lines.length + ' external_item items?')) {
         lines.forEach(function(line) {
-          _this.addChecklistItem(line);
+          _this.addExternalItemItem(line);
         });
       };
     };
@@ -167,19 +167,19 @@ Redmine.IssueChecklist = jQuery.klass({
   }
 });
 
-function observeIssueChecklistField(element, input, key, quantity, add_button, fileInput) {
-  issueChecklist = new Redmine.IssueChecklist(element, input, key, quantity, add_button, fileInput);
+function observeIssueExternalItemField(element, input, key, quantity, add_button, fileInput) {
+  issueExternalItem = new Redmine.IssueExternalItem(element, input, key, quantity, add_button, fileInput);
 }
 
-function createIssueChecklist(checkList) {
-  issueChecklist.addChecklist(checkList);
+function createIssueExternalItem(checkList) {
+  issueExternalItem.addExternalItem(checkList);
 }
 
-function checklist_item_done(elem,url,id){
+function external_item_item_done(elem,url,id){
   $.ajax({url: url,
           dataType: 'script',
-          data: 'checklist_item_' + id});
-  var checkbox = $('#checklist_item_checkbox_'+id);
+          data: 'external_item_item_' + id});
+  var checkbox = $('#external_item_item_checkbox_'+id);
   if (checkbox.is(':checked')) {
     checkbox.removeAttr('checked');
   } else {

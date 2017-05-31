@@ -1,3 +1,3 @@
 
- match 'checklist/done/:checklist_item_id', to: 'issue_checklists#done', via: [:get, :post]
- match 'checklist/delete/:checklist_item_id', to: 'issue_checklists#delete', via: [:get, :post]
+ match 'external_item/done/:external_item_item_id', to: 'issue_external_items#done', via: [:get, :post]
+ match 'external_item/delete/:external_item_item_id', to: 'issue_external_items#delete', via: [:get, :post]

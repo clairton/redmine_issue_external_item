@@ -1,6 +1,6 @@
-class CreateIssueChecklists < ActiveRecord::Migration
+class CreateIssueExternalItems < ActiveRecord::Migration
   def self.up
-    create_table :issue_checklists do |t|
+    create_table :issue_external_items do |t|
       t.boolean :is_done, default: false
       t.string :subject, null: false
       t.string :key, null: false
@@ -11,6 +11,6 @@ class CreateIssueChecklists < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :issue_checklists
+    drop_table :issue_external_items
   end
 end

@@ -1,0 +1,9 @@
+# pt-BR strings go here for Rails i18n
+pt-BR:
+  label_issue_external_item_plural: Lista de Itens
+  field_external_item: Item
+  label_external_item_save_log: Salvar alterações em um log de chamado
+  label_external_item_done_ratio: Salvar automaticamente o chamado a Lista de Itens
+  permission_view_external_items: Visualizar Lista de Itens
+  permission_done_external_items: Alterar relação baseado em Lista de Itens
+  permission_edit_external_items: Editar Lista de Itens
