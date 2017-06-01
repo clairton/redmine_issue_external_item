@@ -10,7 +10,7 @@ div#issue_external_item li {
   margin-left: 10px;
 }
 
-input#external_item_item {
+input#external_item {
   margin-right: 10px;
 }
 
@@ -50,14 +50,14 @@ span.external_item-item input {
   margin-right: 6px;
 }
 
-#add_external_item_item_input {
+#add_external_item_input {
   width: 40%;
 }
 
-#add_external_item_item_quantity_input {
+#add_external_item_quantity_input {
   width: 5%;
 }
 
-#add_external_item_item_quantity_input {
+#add_external_item_quantity_input {
   width: 5%;
 }

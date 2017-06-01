@@ -108,7 +108,7 @@ function createIssueExternalItem(checkList) {
   issueExternalItem.addExternalItem(checkList);
 }
 
-function external_item_item_done(elem, url, id) {
+function external_item_done(elem, url, id) {
   new Ajax.Request(url,
     {
       method: 'get',

@@ -4,19 +4,19 @@
       <label><%= l(:label_issue_external_item_plural) %></label>
       <span id="external_items_form"> </span>
       <%= text_field_tag 'new_external_item_key', '',
-          id: 'add_external_item_item_key_input' %>
+          id: 'add_external_item_key_input' %>
       <%= text_field_tag 'new_external_item', '',
-          id: 'add_external_item_item_input' %>
+          id: 'add_external_item_input' %>
       <%= number_field_tag 'new_external_item_quantity', '',
-          id: 'add_external_item_item_quantity_input' %>
+          id: 'add_external_item_quantity_input' %>
       <%= link_to '', '#',
-          id:    'add_external_item_item_button',
+          id:    'add_external_item_button',
           class: 'tag-add icon icon-add' %>
       <%= file_field_tag 'import_external_item',
           id:     'import_external_items_input',
           accept: 'text/plain' %>
 
-      <%= javascript_tag "observeIssueExternalItemField('external_items_form', 'add_external_item_item_input', 'add_external_item_item_key_input',  'add_external_item_item_quantity_input', 'add_external_item_item_button', 'import_external_items_input');" %>
+      <%= javascript_tag "observeIssueExternalItemField('external_items_form', 'add_external_item_input', 'add_external_item_key_input',  'add_external_item_quantity_input', 'add_external_item_button', 'import_external_items_input');" %>
       <%= javascript_tag "createIssueExternalItem(#{@issue.external_item.collect { |cli| { is_done: cli.is_done, subject: cli.subject, quantity: cli.quantity, key: cli.key, id: cli.id } }.to_json.html_safe});" %>
     </p>
   </div>

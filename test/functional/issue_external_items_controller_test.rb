@@ -34,7 +34,7 @@ class IssueExternalItemsControllerTest < ActionController::TestCase
   # test "should not post new by deny user" do
   #   @request.session[:user_id] = 5
   #
-  #   xhr :post, :new, issue_id: 1, new_external_item_item: "New external_item item"
+  #   xhr :post, :new, issue_id: 1, new_external_item: "New external_item item"
   #   assert_response 401
   # end
 

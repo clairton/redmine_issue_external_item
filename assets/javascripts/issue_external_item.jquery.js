@@ -66,7 +66,7 @@ Redmine.IssueExternalItem = jQuery.klass({
     var button = $(document.createElement('span'));
     button.attr({'href': '#', 'class': 'delete icon icon-del' });
     var checkbox = $(document.createElement('input'));
-    checkbox.attr({'type': 'checkbox', 'name': 'external_items[][is_done]', 'value': '1', 'id': 'external_item_item_checkbox_'+id});
+    checkbox.attr({'type': 'checkbox', 'name': 'external_items[][is_done]', 'value': '1', 'id': 'external_item_checkbox_'+id});
     var label  = $(document.createElement('span'));
     label.attr({ 'class': 'external_item-item' })
                   .append(hidden)
@@ -175,11 +175,11 @@ function createIssueExternalItem(checkList) {
   issueExternalItem.addExternalItem(checkList);
 }
 
-function external_item_item_done(elem,url,id){
+function external_item_done(elem,url,id){
   $.ajax({url: url,
           dataType: 'script',
-          data: 'external_item_item_' + id});
-  var checkbox = $('#external_item_item_checkbox_'+id);
+          data: 'external_item_' + id});
+  var checkbox = $('#external_item_checkbox_'+id);
   if (checkbox.is(':checked')) {
     checkbox.removeAttr('checked');
   } else {
