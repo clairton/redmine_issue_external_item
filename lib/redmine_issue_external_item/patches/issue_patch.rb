@@ -19,9 +19,6 @@ module RedmineIssueExternalItem
           copy_from_without_external_item(arg, options)
           issue          = arg.is_a?(Issue) ? arg : Issue.visible.find(arg)
           self.external_item = issue.external_item.map { |cl| cl.dup }
-          self.external_item.each do |object|
-            object.is_done = nil
-          end
           self
         end
 
@@ -32,7 +29,7 @@ module RedmineIssueExternalItem
 
           external_item.destroy_all
           external_item << external_items.uniq.collect do |cli|
-            IssueExternalItem.new(is_done: cli[:is_done], subject: cli[:subject], key: cli[:key], quantity: cli[:quantity])
+            IssueExternalItem.new(subject: cli[:subject], key: cli[:key], quantity: cli[:quantity])
           end
 
           new_external_item = external_item.collect(&:info).join(', ')

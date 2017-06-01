@@ -42,9 +42,6 @@ Now you should be able to see the plugin in **Administration > Plugins**.
 
 The Redmine Issue ExternalItem plugin enables you to add external_items to Redmine issues.
 
-You can configure the plugin to track the external_item changes in the issue log and change the issue done ratio based on the external_item progress. To do this, go to **Administration > Plugins**, clik**Configure** and select the corresponding check boxes.  
-![plugin settings](doc/issue_external_item_1.png)
-
 To add a external_item to an issue, enter the external_item item text into the the **ExternalItem** field in the issue description and click the **+** button.  
 ![external_item item](doc/issue_external_item_2.png)
 

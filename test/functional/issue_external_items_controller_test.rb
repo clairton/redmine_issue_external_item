@@ -31,29 +31,4 @@ class IssueExternalItemsControllerTest < ActionController::TestCase
     Setting.default_language = 'en'
   end
 
-  # test "should not post new by deny user" do
-  #   @request.session[:user_id] = 5
-  #
-  #   xhr :post, :new, issue_id: 1, new_external_item: "New external_item item"
-  #   assert_response 401
-  # end
-
-
-  test 'should post done' do
-    # log_user('admin', 'admin')
-    @request.session[:user_id] = 1
-
-    xhr :post, :done, is_done: true, external_item_id: '1'
-    assert_response :success
-    assert_equal true, IssueExternalItem.find(1).is_done
-  end
-
-  test 'should not post done by deny user' do
-    # log_user('admin', 'admin')
-    @request.session[:user_id] = 5
-
-    xhr :post, :done, is_done: true, external_item_id: '1'
-    assert_response 403
-  end
-
 end

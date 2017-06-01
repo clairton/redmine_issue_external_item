@@ -3,7 +3,5 @@ en:
   label_issue_external_item_plural: External Item
   field_external_item: External Item
   label_external_item_save_log: Save changes to the issue log
-  label_external_item_done_ratio: Automatically change the issue done ratio
   permission_view_external_items: View external items
-  permission_done_external_items: Change done ratio based on external_item
   permission_edit_external_items: Edit external items

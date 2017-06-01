@@ -47,12 +47,10 @@ Redmine.IssueExternalItem = jQuery.klass({
     }
   },
 
-  addExternalItemItem: function(сhecklistItem, key, quantity, isDone, id) {
+  addExternalItemItem: function(сhecklistItem, key, quantity, id) {
     if ($.isEmptyObject(сhecklistItem) || $.isEmptyObject(key) || $.isEmptyObject(quantity)) {
       return;
     }
-
-    isDone = isDone || false;
 
     var hidden = $(document.createElement('input'));
     hidden.attr({'type': 'hidden', 'name': 'external_items[][subject]', 'value': $.trim(сhecklistItem)});
@@ -65,25 +63,17 @@ Redmine.IssueExternalItem = jQuery.klass({
 
     var button = $(document.createElement('span'));
     button.attr({'href': '#', 'class': 'delete icon icon-del' });
-    var checkbox = $(document.createElement('input'));
-    checkbox.attr({'type': 'checkbox', 'name': 'external_items[][is_done]', 'value': '1', 'id': 'external_item_checkbox_'+id});
     var label  = $(document.createElement('span'));
     label.attr({ 'class': 'external_item-item' })
                   .append(hidden)
                   .append(keyInput)
                   .append(quantityInput)
-                  .append(checkbox)
                   .append($.trim(key))
                   .append(' - ')
                   .append($.trim(сhecklistItem))
                   .append(' - ')
                   .append($.trim(quantity))
                   .append(button);
-
-    if (isDone == true) {
-      checkbox.attr('checked', 'checked');
-      label.addClass('is-done-external_item-item');
-    }
 
     this.external_item[сhecklistItem] = 1;
     this.element.append(label);
@@ -93,20 +83,11 @@ Redmine.IssueExternalItem = jQuery.klass({
       label.remove();
       // Event.stop(event);
     }, this));
-
-    checkbox.click($.proxy(function(){
-      if (checkbox.is(':checked')) {
-        label.addClass('is-done-external_item-item');
-      } else {
-        label.removeClass('is-done-external_item-item');
-      };
-    }, this));
-
   },
 
   addExternalItem: function(external_item) {
     for (var i = 0; i < external_item.length; i++) {
-      this.addExternalItemItem(external_item[i]['subject'], external_item[i]['key'], external_item[i]['quantity'], external_item[i]['is_done'], external_item[i]['id']);
+      this.addExternalItemItem(external_item[i]['subject'], external_item[i]['key'], external_item[i]['quantity'], external_item[i]['id']);
     }
   },
 
@@ -173,16 +154,4 @@ function observeIssueExternalItemField(element, input, key, quantity, add_button
 
 function createIssueExternalItem(checkList) {
   issueExternalItem.addExternalItem(checkList);
-}
-
-function external_item_done(elem,url,id){
-  $.ajax({url: url,
-          dataType: 'script',
-          data: 'external_item_' + id});
-  var checkbox = $('#external_item_checkbox_'+id);
-  if (checkbox.is(':checked')) {
-    checkbox.removeAttr('checked');
-  } else {
-    checkbox.attr('checked', true);
-  }
 }

@@ -22,36 +22,6 @@ class IssueExternalItemsController < ApplicationController
     end
   end
 
-  def done
-    (render_403; return false) unless User.current.allowed_to?(:done_external_items, @external_item.issue.project)
-
-    old_external_item      = @external_item.dup
-    @external_item.is_done = !@external_item.is_done
-
-    if @external_item.save
-      if RedmineIssueExternalItem.settings[:save_log] && old_external_item.info != @external_item.info
-        journal = Journal.new(journalized: @external_item.issue, user: User.current)
-        journal.details << JournalDetail.new(
-          property: 'attr',
-          prop_key: 'external_item',
-          # old_value: old_external_item.info,
-          value:    @external_item.info)
-        journal.save
-      end
-
-      if (Setting.issue_done_ratio == 'issue_field') && RedmineIssueExternalItem.settings[:issue_done_ratio]
-        done_external_item                   = @external_item.issue.external_item.map { |c| c.is_done ? 1 : 0 }
-        @external_item.issue.done_ratio = (done_external_item.count(1) * 10) / done_external_item.count * 10
-        @external_item.issue.save
-      end
-    end
-    respond_to do |format|
-      format.js
-      format.html { redirect_to :back }
-    end
-
-  end
-
   def delete
     (render_403; return false) unless User.current.allowed_to?(:edit_external_items, @external_item.issue.project)
 

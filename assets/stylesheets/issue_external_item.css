@@ -32,11 +32,6 @@ span.external_item-item {
   margin-bottom: 5px;
 }
 
-span.external_item-item.is-done-external_item-item, #issue_external_items li.is-done-external_item-item {
-  text-decoration: line-through;
-  color: #999;
-}
-
 span.external_item-item .delete {
   margin-left: 2px;
   opacity: 0.4;

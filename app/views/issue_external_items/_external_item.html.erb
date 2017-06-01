@@ -1,4 +1,4 @@
-<li id="external_item_<%= external_item.id %>" <%= 'class=is-done-external_item-item' if external_item.is_done %> >
+<li id="external_item_<%= external_item.id %>" >
   <%= textilizable(external_item, :key).gsub(/<\/?(p|h\d+|li|ul)>/, '').strip.html_safe %>
   <%= textilizable(external_item, :subject).gsub(/<\/?(p|h\d+|li|ul)>/, '').strip.html_safe %>
   <%= textilizable(external_item, :quantity).gsub(/<\/?(p|h\d+|li|ul)>/, '').strip.html_safe %>

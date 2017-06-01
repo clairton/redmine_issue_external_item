@@ -10,11 +10,6 @@ class RedmineIssueExternalItem::TestCase
       r.save
     end
 
-    Role.find(3, 4).each do |r|
-      r.permissions << :done_external_items
-      r.save
-    end
-
     Project.find(1, 2, 3, 4, 5).each do |project|
       EnabledModule.create(project: project, name: 'issue_external_item')
     end
