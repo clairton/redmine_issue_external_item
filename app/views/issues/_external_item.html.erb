@@ -4,7 +4,7 @@
   <div id="issue_external_item">
     <p><strong><%= l(:label_issue_external_item_plural) %></strong></p>
 
-    <ul id="issue_external_item_items">
+    <ul id="issue_external_items">
       <% @issue.external_item.each do |external_item_item| %>
         <%= render partial: 'issue_external_items/external_item_item', object: external_item_item %>
       <% end %>

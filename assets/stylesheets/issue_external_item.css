@@ -32,7 +32,7 @@ span.external_item-item {
   margin-bottom: 5px;
 }
 
-span.external_item-item.is-done-external_item-item, #issue_external_item_items li.is-done-external_item-item {
+span.external_item-item.is-done-external_item-item, #issue_external_items li.is-done-external_item-item {
   text-decoration: line-through;
   color: #999;
 }

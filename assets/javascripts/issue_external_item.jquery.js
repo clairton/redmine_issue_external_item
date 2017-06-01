@@ -1,10 +1,10 @@
 window.onload = function() {
-  $('#external_item_form_items').sortable();
+  $('#external_items_form').sortable();
 };
 
 var Redmine = Redmine || {};
 
-$.fn.issue_check_list = function(element, input, key, quantity, button, fileInput) {};
+$.fn.issue_external_items = function(element, input, key, quantity, button, fileInput) {};
 
 Redmine.IssueExternalItem = jQuery.klass({
   init: function(element, input, key, quantity, button, fileInput) {
@@ -55,18 +55,18 @@ Redmine.IssueExternalItem = jQuery.klass({
     isDone = isDone || false;
 
     var hidden = $(document.createElement('input'));
-    hidden.attr({'type': 'hidden', 'name': 'check_list_items[][subject]', 'value': $.trim(сhecklistItem)});
+    hidden.attr({'type': 'hidden', 'name': 'external_items[][subject]', 'value': $.trim(сhecklistItem)});
 
     var keyInput = $(document.createElement('input'));
-    keyInput.attr({'type': 'hidden', 'name': 'check_list_items[][key]', 'value': $.trim(key)});
+    keyInput.attr({'type': 'hidden', 'name': 'external_items[][key]', 'value': $.trim(key)});
 
     var quantityInput = $(document.createElement('input'));
-    quantityInput.attr({'type': 'hidden', 'name': 'check_list_items[][quantity]', 'value': $.trim(quantity)});
+    quantityInput.attr({'type': 'hidden', 'name': 'external_items[][quantity]', 'value': $.trim(quantity)});
 
     var button = $(document.createElement('span'));
     button.attr({'href': '#', 'class': 'delete icon icon-del' });
     var checkbox = $(document.createElement('input'));
-    checkbox.attr({'type': 'checkbox', 'name': 'check_list_items[][is_done]', 'value': '1', 'id': 'external_item_item_checkbox_'+id});
+    checkbox.attr({'type': 'checkbox', 'name': 'external_items[][is_done]', 'value': '1', 'id': 'external_item_item_checkbox_'+id});
     var label  = $(document.createElement('span'));
     label.attr({ 'class': 'external_item-item' })
                   .append(hidden)

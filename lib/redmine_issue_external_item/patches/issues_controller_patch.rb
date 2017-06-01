@@ -10,7 +10,7 @@ module RedmineIssueExternalItem
       def build_new_issue_from_params_with_external_item
         build_new_issue_from_params_without_external_item
         if User.current.allowed_to?(:edit_external_items, @issue.project)
-          @issue.update_external_item_items(params[:check_list_items])
+          @issue.update_external_items(params[:external_items])
         end
       end
     end

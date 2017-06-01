@@ -25,13 +25,13 @@ module RedmineIssueExternalItem
           self
         end
 
-        def update_external_item_items(external_item_items, create_journal = false)
-          external_item_items ||= []
+        def update_external_items(external_items, create_journal = false)
+          external_items ||= []
 
           old_external_item = external_item.collect(&:info).join(', ')
 
           external_item.destroy_all
-          external_item << external_item_items.uniq.collect do |cli|
+          external_item << external_items.uniq.collect do |cli|
             IssueExternalItem.new(is_done: cli[:is_done], subject: cli[:subject], key: cli[:key], quantity: cli[:quantity])
           end
 

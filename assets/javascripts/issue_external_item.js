@@ -1,5 +1,5 @@
 window.onload = function () {
-  Sortable.create('external_item_form_items', {tag: 'span'});
+  Sortable.create('external_items_form', {tag: 'span'});
 };
 
 var Redmine = Redmine || {};
@@ -41,26 +41,26 @@ Redmine.IssueExternalItem = Class.create({
 
     var hidden   = new Element('input', {
       'type': 'hidden',
-      'name': 'check_list_items[][subject]',
+      'name': 'external_items[][subject]',
       'value': сhecklistItem.strip()
     });
 
     var keyInput  = new Element('input', {
       'type': 'hidden',
-      'name': 'check_list_items[][key]',
+      'name': 'external_items[][key]',
       'value': key
     });
 
     var quantityInput  = new Element('input', {
       'type': 'hidden',
-      'name': 'check_list_items[][quantity]',
+      'name': 'external_items[][quantity]',
       'value': quantity
     });
 
     var label = key + ' - ' + external_itemItem + ' - ' + quantity; 
 
     var button   = new Element('span', {'href': '#', 'class': 'delete icon icon-del'});
-    var checkbox = new Element('input', {'type': 'checkbox', 'name': 'check_list_items[][is_done]', 'value': '1'});
+    var checkbox = new Element('input', {'type': 'checkbox', 'name': 'external_items[][is_done]', 'value': '1'});
     var label    = new Element('span', {'class': 'external_item-item'}).insert(hidden).insert(keyInput).insert(quantityInput).insert(checkbox).insert(label.strip()).insert(button);
 
     if (isDone == true) {

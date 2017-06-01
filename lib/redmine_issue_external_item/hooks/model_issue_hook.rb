@@ -36,8 +36,8 @@ module RedmineIssueExternalItem
 
       def save_external_item_to_issue(context, create_journal)
         issue = context[:issue]
-        external_item_items = context[:params] && context[:params][:check_list_items]
-        issue.update_external_item_items(external_item_items, create_journal) if issue && external_item_items
+        external_items = context[:params] && context[:params][:external_items]
+        issue.update_external_items(external_items, create_journal) if issue && external_items
       end
 
     end
