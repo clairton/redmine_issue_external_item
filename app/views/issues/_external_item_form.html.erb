@@ -17,7 +17,7 @@
           class: 'tag-add icon icon-add' %>
 
       <%= javascript_tag "observeIssueExternalItemField('external_items_form', 'add_external_item_input', 'add_external_item_key_input',  'add_external_item_quantity_input', 'add_external_item_button', 'import_external_items_input');" %>
-      <%= javascript_tag "createIssueExternalItem(#{@issue.external_item.collect { |cli| {description: cli.description, quantity: cli.quantity, key: cli.key, id: cli.id } }.to_json.html_safe});" %>
+      <%= javascript_tag "createIssueExternalItem(#{@issue.external_items.collect { |cli| {description: cli.description, quantity: cli.quantity, key: cli.key, id: cli.id } }.to_json.html_safe});" %>
     </p>
   </div>
 <% end if User.current.allowed_to?(:edit_external_items, @project) -%>

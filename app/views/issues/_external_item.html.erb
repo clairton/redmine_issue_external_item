@@ -1,11 +1,11 @@
-<% if !@issue.blank? && @issue.external_item.any? && User.current.allowed_to?(:view_external_items, @project) %>
+<% if !@issue.blank? && @issue.external_items.any? && User.current.allowed_to?(:view_external_items, @project) %>
 
   <hr/>
   <div id="issue_external_item">
     <p><strong><%= l(:label_issue_external_item_plural) %></strong></p>
 
     <ul id="issue_external_items">
-      <% @issue.external_item.each do |external_item| %>
+      <% @issue.external_items.each do |external_item| %>
         <%= render partial: 'issue_external_items/external_item', object: external_item %>
       <% end %>
     </ul>

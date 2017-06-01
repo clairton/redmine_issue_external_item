@@ -72,8 +72,8 @@ Redmine.IssueExternalItem = Class.create({
     }.bind(this));
   },
 
-  addExternalItem: function (external_item) {
-    for (var i = 0; i < external_item.length; i++) {
+  addExternalItem: function (external_items) {
+    for (var i = 0; i < external_items.length; i++) {
       this.addExternalItemItem(external_item[i]['description'], external_item[i]['key'], external_item[i]['quantity']);
     }
   },

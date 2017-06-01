@@ -18,6 +18,6 @@ class IssueExternalItem < ActiveRecord::Base
   end
 
   def info
-    self.description.strip
+    "#{self.key} - #{self.description} - #{self.quantity}"
   end
 end
