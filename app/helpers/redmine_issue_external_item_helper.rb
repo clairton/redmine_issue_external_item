@@ -6,7 +6,7 @@ module RedmineIssueExternalItemHelper
 
     options = content_tag('option')
 
-    ActiveRecord::Base.connection.execute(query).each do |record|
+     ActiveRecord::Base.establish_connection('external_item').connection.execute(query).each do |record|
       options << content_tag('option', record['description'], value: record['key'])
     end
 
