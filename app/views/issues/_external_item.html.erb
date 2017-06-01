@@ -1,4 +1,4 @@
-<% if !@issue.blank? && @issue.external_items.any? && User.current.allowed_to?(:view_external_items, @project) %>
+<% if !@issue.blank? && @issue.external_items && @issue.external_items.any? && User.current.allowed_to?(:view_external_items, @project) %>
 
   <hr/>
   <div id="issue_external_item">
