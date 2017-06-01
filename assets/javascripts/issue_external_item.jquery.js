@@ -110,58 +110,6 @@ Redmine.IssueExternalItem = jQuery.klass({
       console.log(`key: ${key} description: ${description}`);
       this.input.val(description);
       this.key.val(key);
-  },
-
-  onDragOver: function(event) {
-    event.stopPropagation();
-    event.preventDefault();
-    event.originalEvent.dataTransfer.dropEffect = 'copy';
-  },
-
-  onDrop: function(event) {
-    var file = event.dataTransfer.files[0];
-
-    event.stopPropagation();
-    event.preventDefault();
-
-    if (file) {
-      this.parseMultiLineFile(file);
-    }
-  },
-
-  onFileInputChange: function(event) {
-    if(!event.target.files){
-      return;
-    }
-    var file = event.target.files[0];
-    if (file) {
-      this.parseMultiLineFile(file);
-    }
-  },
-
-  parseMultiLineFile: function (file) {
-    if (!(window.File && window.FileReader) || !file ||
-        !file.type.match('text.*')) {
-      return false;
-    }
-
-    var _this = this;
-    var reader = new window.FileReader();
-
-    reader.onload = function(event) {
-      var result = event.target.result;
-      var lines = result.split("\n").filter(function(el) {
-        return !$.isEmptyObject(el);
-      });
-
-      if (lines.length && window.confirm('Import ' + lines.length + ' external_item items?')) {
-        lines.forEach(function(line) {
-          _this.addExternalItemItem(line);
-        });
-      };
-    };
-
-    reader.readAsText(file);
   }
 });
 
