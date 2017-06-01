@@ -4,9 +4,12 @@
       <label><%= l(:label_issue_external_item_plural) %></label>
       <span id="external_items_form"> </span>
       <%= text_field_tag 'new_external_item_key', '',
-          id: 'add_external_item_key_input' %>
+          id: 'add_external_item_key_input' , type: 'hidden'%>
       <%= text_field_tag 'new_external_item', '',
-          id: 'add_external_item_input' %>
+          id: 'add_external_item_input', type: 'hidden' %>
+
+      <%= external_items_select_tag %>
+
       <%= number_field_tag 'new_external_item_quantity', '',
           id: 'add_external_item_quantity_input' %>
       <%= link_to '', '#',

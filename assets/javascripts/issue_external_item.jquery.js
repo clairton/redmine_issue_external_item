@@ -48,7 +48,16 @@ Redmine.IssueExternalItem = jQuery.klass({
   },
 
   addExternalItemItem: function(сhecklistItem, key, quantity, id) {
-    if ($.isEmptyObject(сhecklistItem) || $.isEmptyObject(key) || $.isEmptyObject(quantity)) {
+    if ($.isEmptyObject(сhecklistItem)) {
+      console.log('description field is empty');
+      return;
+    }
+    if ($.isEmptyObject(key)) {
+      console.log('key field is empty');
+      return;
+    }
+    if ($.isEmptyObject(quantity)) {
+      console.log('quantity field is empty');
       return;
     }
 
@@ -93,6 +102,14 @@ Redmine.IssueExternalItem = jQuery.klass({
 
   getExternalItem: function() {
     return this.external_item;
+  },
+
+  fillInputExternalItemInput: function(){
+      var key = $('#new_external_item_options').val();
+      var description = $( "#new_external_item_options option:selected" ).text();
+      console.log(`key: ${key} description: ${description}`);
+      this.input.val(description);
+      this.key.val(key);
   },
 
   onDragOver: function(event) {
@@ -154,4 +171,8 @@ function observeIssueExternalItemField(element, input, key, quantity, add_button
 
 function createIssueExternalItem(checkList) {
   issueExternalItem.addExternalItem(checkList);
+}
+
+function fillInputExternalItemInput() {
+  issueExternalItem.fillInputExternalItemInput();
 }

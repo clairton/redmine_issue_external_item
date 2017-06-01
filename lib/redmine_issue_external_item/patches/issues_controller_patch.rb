@@ -5,6 +5,14 @@ module RedmineIssueExternalItem
 
       included do
         alias_method_chain :build_new_issue_from_params, :external_item
+        before_filter :include_redmine_issue_external_item_helper
+      end
+
+      def include_redmine_issue_external_item_helper
+        unless _helpers.included_modules.include? RedmineIssueExternalItemHelper
+          self.class.helper RedmineIssueExternalItemHelper
+        end
+        true
       end
 
       def build_new_issue_from_params_with_external_item
