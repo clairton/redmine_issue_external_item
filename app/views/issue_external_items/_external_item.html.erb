@@ -1,5 +1,5 @@
 <li id="external_item_<%= external_item.id %>" >
-  <%= textilizable(external_item, :key).gsub(/<\/?(p|h\d+|li|ul)>/, '').strip.html_safe %>
-  <%= textilizable(external_item, :description).gsub(/<\/?(p|h\d+|li|ul)>/, '').strip.html_safe %>
+  <%= textilizable(external_item, :key).gsub(/<\/?(p|h\d+|li|ul)>/, '').strip.html_safe %> - 
+  <%= textilizable(external_item, :description).gsub(/<\/?(p|h\d+|li|ul)>/, '').strip.html_safe %> - 
   <%= textilizable(external_item, :quantity).gsub(/<\/?(p|h\d+|li|ul)>/, '').strip.html_safe %>
 </li>
