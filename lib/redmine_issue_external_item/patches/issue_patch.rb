@@ -29,7 +29,7 @@ module RedmineIssueExternalItem
 
           external_item.destroy_all
           external_item << external_items.uniq.collect do |cli|
-            IssueExternalItem.new(subject: cli[:subject], key: cli[:key], quantity: cli[:quantity])
+            IssueExternalItem.new(description: cli[:description], key: cli[:key], quantity: cli[:quantity])
           end
 
           new_external_item = external_item.collect(&:info).join(', ')

@@ -1,19 +1,19 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
   id: 1
-  subject: First todo
+  description: First todo
   issue_id: 1
   key: 123
   quantity: 1
 two:
   id: 2
-  subject: Second todo
+  description: Second todo
   issue_id: 1
   key: 456
   quantity: 2
 three:
   id: 3
-  subject: Third todo
+  description: Third todo
   issue_id: 2
   key: 489
   quantity: 3.3

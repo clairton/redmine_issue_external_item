@@ -41,7 +41,7 @@ Redmine.IssueExternalItem = Class.create({
 
     var hidden   = new Element('input', {
       'type': 'hidden',
-      'name': 'external_items[][subject]',
+      'name': 'external_items[][description]',
       'value': сhecklistItem.strip()
     });
 
@@ -74,7 +74,7 @@ Redmine.IssueExternalItem = Class.create({
 
   addExternalItem: function (external_item) {
     for (var i = 0; i < external_item.length; i++) {
-      this.addExternalItemItem(external_item[i]['subject'], external_item[i]['key'], external_item[i]['quantity']);
+      this.addExternalItemItem(external_item[i]['description'], external_item[i]['key'], external_item[i]['quantity']);
     }
   },
 

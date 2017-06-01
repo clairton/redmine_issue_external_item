@@ -53,7 +53,7 @@ Redmine.IssueExternalItem = jQuery.klass({
     }
 
     var hidden = $(document.createElement('input'));
-    hidden.attr({'type': 'hidden', 'name': 'external_items[][subject]', 'value': $.trim(сhecklistItem)});
+    hidden.attr({'type': 'hidden', 'name': 'external_items[][description]', 'value': $.trim(сhecklistItem)});
 
     var keyInput = $(document.createElement('input'));
     keyInput.attr({'type': 'hidden', 'name': 'external_items[][key]', 'value': $.trim(key)});
@@ -87,7 +87,7 @@ Redmine.IssueExternalItem = jQuery.klass({
 
   addExternalItem: function(external_item) {
     for (var i = 0; i < external_item.length; i++) {
-      this.addExternalItemItem(external_item[i]['subject'], external_item[i]['key'], external_item[i]['quantity'], external_item[i]['id']);
+      this.addExternalItemItem(external_item[i]['description'], external_item[i]['key'], external_item[i]['quantity'], external_item[i]['id']);
     }
   },
 

@@ -1,7 +1,7 @@
 class CreateIssueExternalItems < ActiveRecord::Migration
   def self.up
     create_table :issue_external_items do |t|
-      t.string :subject, null: false
+      t.string :description, null: false
       t.string :key, null: false
       t.decimal :quantity, null: false
       t.integer :position, default: 1

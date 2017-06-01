@@ -4,10 +4,10 @@ class IssueExternalItem < ActiveRecord::Base
   has_one :comment, as: :commented, dependent: :delete
   acts_as_list
 
-  attr_accessible :subject, :key, :quantity
+  attr_accessible :description, :key, :quantity
   attr_protected :id
 
-  validates_presence_of :subject, :key, :quantity
+  validates_presence_of :description, :key, :quantity
 
   def editable_by?(usr=User.current)
     usr && (usr.allowed_to?(:edit_external_items, project) || (self.author == usr && usr.allowed_to?(:edit_own_external_items, project)))
@@ -18,6 +18,6 @@ class IssueExternalItem < ActiveRecord::Base
   end
 
   def info
-    self.subject.strip
+    self.description.strip
   end
 end
