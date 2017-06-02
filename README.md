@@ -36,33 +36,11 @@ This plugin version is compatible only with Redmine 3.0 and later.
         
 4. Restart Redmine.
 
-Now you should be able to see the plugin in **Administration > Plugins**.
+Now you should be able to see the plugin in **Administration > Custom Field > Issues**.
 
 ## Usage
 
-The Redmine Issue ExternalItem plugin enables you to add external_items to Redmine issues.
-
-To add a external_item to an issue, enter the external_item item text into the the **ExternalItem** field in the issue description and click the **+** button.  
-![external_item item](doc/issue_external_item_2.png)
-
-You can add as many external_item items as you need. To rearrange the external_item, drag and drop the items in the desired order. To delete an item, click the trash bin icon.  
-![external_item item](doc/issue_external_item_3.png)
-
-To mark the completed external_item items, select the corresponding check boxes. The plugin will display the changes in the issue log and change the issue done ratio, if you have configured it accordingly.  
-![progress](doc/issue_external_item_4.png)
-
-To manage external_item-related permissions, go to **Administration > Roles and permissions**, click the role name and select or clear the required check boxes.  
-![permissions](doc/issue_external_item_5.png)
-
-## Testing
-
-Run tests using the following command:
-
-    rake redmine:plugins:test NAME=redmine_issue_external_item RAILS_ENV=test_sqlite3
-    
-## Maintainers
-
-Danil Tashkinov, [github.com/nodecarter](https://github.com/nodecarter)
+Create a connection called "external_item_production" to retrieve items, PS: the query is static yet
  
 ## License
 
