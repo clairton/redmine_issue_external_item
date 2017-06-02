@@ -3,7 +3,6 @@
   <%= fields_for :issue, issue do |f| -%>
     <div class="tabular">
       <p id="issue_external_item_form">
-        <label><%= l(:label_issue_external_item_plural) %></label>
         <span id="external_items_form"> </span>
         <%= text_field_tag 'new_external_item_key', '',
             id: 'add_external_item_key_input' , type: 'hidden'%>
