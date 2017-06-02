@@ -41,8 +41,63 @@ module RedmineIssueExternalItem
               old_value: old_external_items,
               value:     new_external_items)
           end
+          export_order_file
         end
 
+        def export_order_file
+          #if status <=> 'Em andamento' 
+          
+            #Header
+            out = "[CP_REQUISICOESPAI]\n\r"
+            out << "@SERVICO=I\n\r"
+            out << "EMPRESA=1\n\r"
+            out << "FILIAL=24\n\r"
+            out << "NUMERO=\n\r"
+            out << "CONFIRMANTE="+User.current.id.to_s+"\n\r"
+            out << "GRUPODEASSINATURAS=2\n\r"
+            out << "\n\n"
+
+            external_items.each do |item|
+                out << "[CP_REQUISICOES]\n\r"
+                out << "@SERVICO=I\n\r"
+                out << "EMPRESA=1 \n\r"
+                out << "FILIAL=24\n\r"
+                out << "REQUISICAOPAI=@CP_REQUISICOESPAI@\n\r"
+                out << "NUMERO=\n\r"
+                out << "DATA="+start_date.strftime("%d/%m/%Y")+"\n\r"
+                out << "REQUISITANTE=AgenciaX\n\r"
+                out << "CENTROCUSTO=@HANDLE(1)"+"\n\r"
+                out << "PRAZO="+(due_date.nil? ? start_date : due_date).strftime("%d/%m/%Y")+"\n\r"
+                out << "PRODUTO="+item.key.to_s+"\n\r"
+                out << "QUANTIDADE="+item.quantity.to_s+"\n\r"
+                out << "FAMILIA=1\n\r"
+                out << "STATUS=1\n\r"
+                out << "ALMOXARIFADO=2"
+                out << "TIPO=O\n\r"
+                out << "UNIDADE=1\n\r"
+                out << "ALMOXARIFADOORIGEM=2\n\r"
+                out << "OPERACAO=1068\n\r"
+                out << "TABTIPO=2\n\r"
+                out << "LIBERADA=N\n\r"
+                out << "TIPOMOVIMENTACAO=1\n\r"
+                out << "NUMEROORIGEM =\n\r"
+                out << "CONFIRMANTE="+User.current.id.to_s+"\n\r"
+                out << "CONFIRMARATE="+(due_date.nil? ? start_date : due_date).strftime("%d/%m/%Y")+"\n\r"
+                out << "K_FILIALREQUISITANTE=1\n\r"
+                out << "\n"
+            end
+
+            #Trailler
+            out << "[CP_REQUISICOESPAI]\n\r"
+            out << "@SERVICO=V\n\r"
+            out << "*HANDLE=@CP_REQUISICOESPAI@\n\r"
+            out << "\n"
+
+            name = Rails.configuration.issue_external_item.export_dir + DateTime.now.strftime("%y%m%d%H%M%S%L") + ".att"
+
+            File.open(name, 'w') { |file| file.write(out) }
+          #end
+        end
       end
 
     end

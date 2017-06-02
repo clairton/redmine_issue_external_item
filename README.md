@@ -41,6 +41,18 @@ Now you should be able to see the plugin in **Administration > Custom Field > Is
 ## Usage
 
 Create a connection called "external_item_production" to retrieve items, PS: the query is static yet
+
+Put configuration in your enviroment file like config/environment/production.rb as
+
+```ruby
+Rails.application.configure do
+  ...
+  config.issue_external_item = ActiveSupport::OrderedOptions.new
+  config.issue_external_item.export_dir = '/tmp/external_items/'
+  ...
+end
+
+```
  
 ## License
 
