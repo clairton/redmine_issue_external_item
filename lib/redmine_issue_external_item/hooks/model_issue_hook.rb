@@ -23,18 +23,18 @@ module RedmineIssueExternalItem
 
       def controller_issues_edit_before_save(context={})
         if User.current.allowed_to?(:edit_external_items, context[:issue].project)
-          save_external_item_to_issue(context, RedmineIssueExternalItem.settings[:save_log])
+          save_external_items_to_issue(context, RedmineIssueExternalItem.settings[:save_log])
         end
       end
 
       def controller_issues_new_after_save(context={})
         if User.current.allowed_to?(:edit_external_items, context[:issue].project)
-          save_external_item_to_issue(context, false)
+          save_external_items_to_issue(context, false)
           context[:issue].save
         end
       end
 
-      def save_external_item_to_issue(context, create_journal)
+      def save_external_items_to_issue(context, create_journal)
         issue = context[:issue]
         external_items = context[:params] && context[:params][:external_items]
         issue.update_external_items(external_items, create_journal) if issue && external_items
