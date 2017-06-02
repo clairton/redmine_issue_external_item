@@ -46,7 +46,9 @@ module RedmineIssueExternalItem
 
         def export_order_file
           #if status <=> 'Em andamento' 
-          
+            
+            start_date ||= User.current.today
+
             #Header
             out = "[CP_REQUISICOESPAI]\n\r"
             out << "@SERVICO=I\n\r"
