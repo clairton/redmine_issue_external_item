@@ -24,3 +24,5 @@ Redmine::Plugin.register :redmine_issue_external_item do
   end
 
 end
+
+Redmine::FieldFormat.add 'issue_external_items', IssueExternalItemsFieldFormat

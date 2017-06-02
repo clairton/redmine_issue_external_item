@@ -1,7 +1,8 @@
 # English strings go here for Rails i18n
 en:
-  label_issue_external_item_plural: External Item
-  field_external_item: External Item
+  label_issue_external_item_plural: External items
+  label_issue_external_items: External Items
+  field_external_item: External Items
   label_external_item_save_log: Save changes to the issue log
   permission_view_external_items: View external items
   permission_edit_external_items: Edit external items

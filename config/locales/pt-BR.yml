@@ -1,6 +1,7 @@
 # pt-BR strings go here for Rails i18n
 pt-BR:
   label_issue_external_item_plural: Lista de Itens
+  label_issue_external_items: Lista de Itens
   field_external_item: Item
   label_external_item_save_log: Salvar alterações em um log de chamado
   label_external_item_done_ratio: Salvar automaticamente o chamado a Lista de Itens

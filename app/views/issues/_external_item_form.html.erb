@@ -1,34 +1,37 @@
-<%= fields_for :issue, issue do |f| -%>
-  <div class="tabular">
-    <p id="issue_external_item_form">
-      <label><%= l(:label_issue_external_item_plural) %></label>
-      <span id="external_items_form"> </span>
-      <%= text_field_tag 'new_external_item_key', '',
-          id: 'add_external_item_key_input' , type: 'hidden'%>
-      <%= text_field_tag 'new_external_item', '',
-          id: 'add_external_item_input', type: 'hidden' %>
+<% formats = @issue.custom_field_values.collect { |v| v.custom_field.field_format } %>
+<% if formats.include? 'issue_external_items' %>
+  <%= fields_for :issue, issue do |f| -%>
+    <div class="tabular">
+      <p id="issue_external_item_form">
+        <label><%= l(:label_issue_external_item_plural) %></label>
+        <span id="external_items_form"> </span>
+        <%= text_field_tag 'new_external_item_key', '',
+            id: 'add_external_item_key_input' , type: 'hidden'%>
+        <%= text_field_tag 'new_external_item', '',
+            id: 'add_external_item_input', type: 'hidden' %>
 
-      <%= external_items_select_tag %>
+        <%= external_items_select_tag %>
 
-      <%= number_field_tag 'new_external_item_quantity', '',
-          id: 'add_external_item_quantity_input' %>
-      <%= link_to '', '#',
-          id:    'add_external_item_button',
-          class: 'tag-add icon icon-add' %>
+        <%= number_field_tag 'new_external_item_quantity', '',
+            id: 'add_external_item_quantity_input' %>
+        <%= link_to '', '#',
+            id:    'add_external_item_button',
+            class: 'tag-add icon icon-add' %>
 
-      <%= javascript_tag "observeIssueExternalItemField('external_items_form', 'add_external_item_input', 'add_external_item_key_input',  'add_external_item_quantity_input', 'add_external_item_button', 'import_external_items_input');" %>
-      <%= javascript_tag "createIssueExternalItem(#{@issue.external_items.collect { |cli| {description: cli.description, quantity: cli.quantity, key: cli.key, id: cli.id } }.to_json.html_safe});" %>
-    </p>
-  </div>
-<% end if User.current.allowed_to?(:edit_external_items, @project) -%>
+        <%= javascript_tag "observeIssueExternalItemField('external_items_form', 'add_external_item_input', 'add_external_item_key_input',  'add_external_item_quantity_input', 'add_external_item_button', 'import_external_items_input');" %>
+        <%= javascript_tag "createIssueExternalItem(#{@issue.external_items.collect { |cli| {description: cli.description, quantity: cli.quantity, key: cli.key, id: cli.id } }.to_json.html_safe});" %>
+      </p>
+    </div>
+  <% end if User.current.allowed_to?(:edit_external_items, @project) -%>
 
 
-<% content_for :header_tags do %>
-  <% if Redmine::VERSION::MAJOR == 3 || (Redmine::VERSION::MAJOR == 2 && Redmine::VERSION::MINOR >= 1) %>
-    <%= javascript_include_tag 'jquery.klass.js', plugin: 'redmine_issue_external_item' %>
-    <%= javascript_include_tag 'issue_external_item.jquery.js', plugin: 'redmine_issue_external_item' %>
-  <% else %>
-    <%= javascript_include_tag 'issue_external_item.prototype.js', plugin: 'redmine_issue_external_item' %>
+  <% content_for :header_tags do %>
+    <% if Redmine::VERSION::MAJOR == 3 || (Redmine::VERSION::MAJOR == 2 && Redmine::VERSION::MINOR >= 1) %>
+      <%= javascript_include_tag 'jquery.klass.js', plugin: 'redmine_issue_external_item' %>
+      <%= javascript_include_tag 'issue_external_item.jquery.js', plugin: 'redmine_issue_external_item' %>
+    <% else %>
+      <%= javascript_include_tag 'issue_external_item.prototype.js', plugin: 'redmine_issue_external_item' %>
+    <% end %>
+    <%= stylesheet_link_tag :issue_external_item, plugin: 'redmine_issue_external_item' %>
   <% end %>
-  <%= stylesheet_link_tag :issue_external_item, plugin: 'redmine_issue_external_item' %>
 <% end %>
