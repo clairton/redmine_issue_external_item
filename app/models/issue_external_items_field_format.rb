@@ -1,7 +1,6 @@
 class IssueExternalItemsFieldFormat < Redmine::FieldFormat::List 
 
       add 'issue_external_items'
-      self.searchable_supported = true
       self.form_partial = 'issue_external_item/external_item_config'
 
 	# def possible_values_options(custom_field, object=nil)

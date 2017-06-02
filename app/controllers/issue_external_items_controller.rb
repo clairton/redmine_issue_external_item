@@ -8,13 +8,10 @@ class IssueExternalItemsController < ApplicationController
     if params[:description]
        query << " where lower(projects.name) like lower('%#{params[:description]}%' )"
     end
+
     query << " order by description limit 10"
 
-    @items = []
-
-    ActiveRecord::Base.connection.execute(query).each do |record|
-      @items << {key: record['key'], description: record['description']}
-    end
+    @items = Item.find_by_sql(query)
 
     respond_to do |format|
       format.html { render json: @items.to_json}
@@ -42,7 +39,7 @@ class IssueExternalItemsController < ApplicationController
   def find_external_item
       if params[:external_item_id]
         @external_item = IssueExternalItem.find(params[:external_item_id])
-        @project        = @external_item.issue.project
+        @project  = @external_item.issue.project
       end
    end
 
