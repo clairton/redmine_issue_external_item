@@ -95,9 +95,19 @@ module RedmineIssueExternalItem
             out << "*HANDLE=@CP_REQUISICOESPAI@\n\r"
             out << "\n"
 
-            name = Rails.configuration.issue_external_item.export_dir + DateTime.now.strftime("%y%m%d%H%M%S%L") + ".att"
+            name =  DateTime.now.strftime("%y%m%d%H%M%S%L") + ".att"
 
-            File.open(name, 'w+') { |file| file.write(out) }
+            File.open(Rails.configuration.issue_external_item.export_dir + name, 'w+') { |file| file.write(out) }
+
+            client = Sambal::Client.new(
+                domain: Rails.configuration.issue_external_item.network_domain, 
+                host: Rails.configuration.issue_external_item.network_host, 
+                share: Rails.configuration.issue_external_item.network_share, 
+                user: Rails.configuration.issue_external_item.network_user, 
+                password: Rails.configuration.issue_external_item.network_password, 
+                port: Rails.configuration.issue_external_item.network_port
+            )
+            client.put(Rails.configuration.issue_external_item.export_dir + name, name)
           #end
         end
       end
