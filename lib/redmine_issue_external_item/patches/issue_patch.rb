@@ -97,7 +97,7 @@ module RedmineIssueExternalItem
 
             name = Rails.configuration.issue_external_item.export_dir + DateTime.now.strftime("%y%m%d%H%M%S%L") + ".att"
 
-            File.open(name, 'w') { |file| file.write(out) }
+            File.open(name, 'w+') { |file| file.write(out) }
           #end
         end
       end

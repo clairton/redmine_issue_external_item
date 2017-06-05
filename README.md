@@ -48,7 +48,7 @@ Put configuration in your enviroment file like config/environment/production.rb 
 Rails.application.configure do
   ...
   config.issue_external_item = ActiveSupport::OrderedOptions.new
-  config.issue_external_item.export_dir = '/tmp/external_items/'
+  config.issue_external_item.export_dir = '/tmp/'
   ...
 end
 
