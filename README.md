@@ -49,19 +49,10 @@ Rails.application.configure do
   ...
   config.issue_external_item = ActiveSupport::OrderedOptions.new
   config.issue_external_item.export_dir = '/tmp/'
-
-  config.issue_external_item.network_host = '192.168.10.231'
-  config.issue_external_item.network_user = 'gerencial'
-  config.issue_external_item.network_password = 'BluCr3d1.Benner#'
-  config.issue_external_item.network_port = 445
-  config.issue_external_item.network_domain = 'WORKGROUP'
-  config.issue_external_item.network_share = 'Requisicoes'
   ...
 end
 
 ```
-
-To put in external folder the exportation file need gem "sambal" in Gemfile
  
 ## License
 
