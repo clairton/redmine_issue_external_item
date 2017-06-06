@@ -66,7 +66,7 @@ module RedmineIssueExternalItem
                 out << "FILIAL=24\n\r"
                 out << "REQUISICAOPAI=@CP_REQUISICOESPAI@\n\r"
                 out << "NUMERO=\n\r"
-                out << "DATA="+start_date.strftime("%d/%m/%Y")+"\n\r"
+                out << "DATA="+start_date.strftime("%Y%m%d")+"\n\r"
                 out << "REQUISITANTE=AgenciaX\n\r"
                 out << "CENTROCUSTO=@HANDLE(1)"+"\n\r"
                 out << "PRAZO="+(due_date.nil? ? start_date : due_date).strftime("%d/%m/%Y")+"\n\r"
