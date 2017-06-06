@@ -82,7 +82,7 @@ module RedmineIssueExternalItem
                 out << "NUMERO=\n\r\n\r"
                 out << "DATA="+start_date.strftime("%Y%m%d")+"\n\r\n\r"
                 out << "REQUISITANTE="+agencia.to_s+"\n\r\n\r"
-                out << "CENTROCUSTO=@HANDLE(1)"+"\n\r\n\r"
+                out << "CENTROCUSTO=@HANDLE(42)"+"\n\r\n\r"
                 out << "PRAZO="+(due_date.nil? ? start_date : due_date).strftime("%Y%m%d")+"\n\r\n\r"
                 out << "PRODUTO="+item.key.to_s+"\n\r\n\r"
                 out << "QUANTIDADE="+item.quantity.to_s+"\n\r\n\r"
