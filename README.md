@@ -49,6 +49,14 @@ Rails.application.configure do
   ...
   config.issue_external_item = ActiveSupport::OrderedOptions.new
   config.issue_external_item.export_dir = '/tmp/'
+  #must be key and description columns
+  config.issue_external_item.query = %{
+    select 
+      id as key, 
+      name as description 
+    from 
+      projects
+  }
   ...
 end
 
