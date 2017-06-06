@@ -5,4 +5,6 @@ en:
   field_external_item: External Items
   label_external_item_save_log: Save changes to the issue log
   permission_view_external_items: View external items
-  permission_edit_external_items: Edit external items
+  permission_update_external_items: Edit external items
+  permission_create_external_items: Create external items
+  permission_delete_external_items: Delete external items

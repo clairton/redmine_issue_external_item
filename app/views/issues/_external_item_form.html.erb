@@ -21,7 +21,7 @@
         <%= javascript_tag "createIssueExternalItem(#{@issue.external_items.collect { |cli| {description: cli.description, quantity: cli.quantity, key: cli.key, id: cli.id } }.to_json.html_safe});" %>
       </p>
     </div>
-  <% end if User.current.allowed_to?(:edit_external_items, @project) -%>
+  <% end if ((User.current.allowed_to?(:update_external_items, @project) && !@issue.new_record?) || (User.current.allowed_to?(:create_external_items, @project) && @issue.new_record?))-%>
 
 
   <% content_for :header_tags do %>

@@ -20,7 +20,7 @@ class IssueExternalItemsController < ApplicationController
   end
 
   def delete
-    (render_403; return false) unless User.current.allowed_to?(:edit_external_items, @external_item.issue.project)
+    (render_403; return false) unless User.current.allowed_to?(:delete_external_items, @external_item.issue.project)
 
     @external_item.delete
     respond_to do |format|

@@ -7,4 +7,6 @@ pt-BR:
   label_external_item_done_ratio: Salvar automaticamente o chamado a Lista de Itens
   permission_view_external_items: Visualizar Lista de Itens
   permission_done_external_items: Alterar relação baseado em Lista de Itens
-  permission_edit_external_items: Editar Lista de Itens
+  permission_update_external_items: Editar Lista de Itens
+  permission_create_external_items: Criar Lista de Itens
+  permission_delete_external_items: Remover Lista de Itens

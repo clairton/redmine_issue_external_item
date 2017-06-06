@@ -4,7 +4,6 @@ module RedmineIssueExternalItem
       extend ActiveSupport::Concern
 
       included do
-        alias_method_chain :build_new_issue_from_params, :external_item
         before_filter :include_redmine_issue_external_item_helper
       end
 
@@ -13,13 +12,6 @@ module RedmineIssueExternalItem
           self.class.helper RedmineIssueExternalItemHelper
         end
         true
-      end
-
-      def build_new_issue_from_params_with_external_item
-        build_new_issue_from_params_without_external_item
-        if User.current.allowed_to?(:edit_external_items, @issue.project) && params[:external_items]
-          @issue.update_external_items(params[:external_items], RedmineIssueExternalItem.settings[:save_log])
-        end
       end
     end
   end

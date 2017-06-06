@@ -6,7 +6,7 @@ ActiveRecord::Fixtures.create_fixtures(File.dirname(__FILE__) + '/fixtures/',
 class RedmineIssueExternalItem::TestCase
   def self.prepare
     Role.find(1, 2, 3, 4).each do |r|
-      r.permissions << :edit_external_items
+      r.permissions << :update_external_items
       r.save
     end
 

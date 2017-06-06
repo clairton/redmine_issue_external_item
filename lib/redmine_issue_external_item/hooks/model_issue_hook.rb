@@ -22,18 +22,18 @@ module RedmineIssueExternalItem
     class ModelIssueHook < Redmine::Hook::ViewListener
 
       def controller_issues_edit_before_save(context={})
-        if User.current.allowed_to?(:edit_external_items, context[:issue].project)
+        if User.current.allowed_to?(:update_external_items, context[:issue].project)
           save_external_items_to_issue(context, RedmineIssueExternalItem.settings[:save_log])
           context[:issue].save
         end
       end
 
-      # def controller_issues_new_after_save(context={})
-      #   if User.current.allowed_to?(:edit_external_items, context[:issue].project)
-      #     save_external_items_to_issue(context, RedmineIssueExternalItem.settings[:save_log])
-      #     context[:issue].save
-      #   end
-      # end
+      def controller_issues_new_after_save(context={})
+        if User.current.allowed_to?(:create_external_items, context[:issue].project)
+          save_external_items_to_issue(context, RedmineIssueExternalItem.settings[:save_log])
+          context[:issue].save
+        end
+      end
 
       def save_external_items_to_issue(context, create_journal)
         issue = context[:issue]

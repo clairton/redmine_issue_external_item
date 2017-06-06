@@ -10,7 +10,7 @@ class IssueExternalItem < ActiveRecord::Base
   validates_presence_of :description, :key, :quantity
 
   def editable_by?(usr=User.current)
-    usr && (usr.allowed_to?(:edit_external_items, project) || (self.author == usr && usr.allowed_to?(:edit_own_external_items, project)))
+    usr && (usr.allowed_to?(:update_external_items, project) || (self.author == usr && usr.allowed_to?(:edit_own_external_items, project)))
   end
 
   def project
