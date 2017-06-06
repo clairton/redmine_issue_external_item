@@ -55,7 +55,7 @@ module RedmineIssueExternalItem
             out << "EMPRESA=1\n\r\n\r"
             out << "FILIAL=24\n\r\n\r"
             out << "NUMERO=\n\r\n\r"
-            out << "CONFIRMANTE="+User.current.id.to_s+"\n\r\n\r"
+            out << "CONFIRMANTE=149\n\r\n\r"
             out << "GRUPODEASSINATURAS=2\n\r\n\r"
             out << "\n\n"
 
@@ -83,7 +83,7 @@ module RedmineIssueExternalItem
                 out << "LIBERADA=N\n\r\n\r"
                 out << "TIPOMOVIMENTACAO=1\n\r\n\r"
                 out << "NUMEROORIGEM =\n\r\n\r"
-                out << "CONFIRMANTE="+User.current.id.to_s+"\n\r\n\r"
+                out << "CONFIRMANTE=149\n\r\n\r"
                 out << "CONFIRMARATE="+(due_date.nil? ? start_date : due_date).strftime("%d/%m/%Y")+"\n\r\n\r"
                 out << "K_FILIALREQUISITANTE=1\n\r\n\r"
                 out << "\n"
