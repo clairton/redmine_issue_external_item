@@ -88,7 +88,7 @@ module RedmineIssueExternalItem
                 out << "QUANTIDADE="+item.quantity.to_s+"\n\r\n\r"
                 out << "FAMILIA="+familia .to_s+"\n\r\n\r"
                 out << "STATUS=1\n\r\n\r"
-                out << "ALMOXARIFADO=2"
+                out << "ALMOXARIFADO=2\n\r\n\r"
                 out << "TIPO=O\n\r\n\r"
                 out << "UNIDADE="+unidade.to_s+"\n\r\n\r"
                 out << "ALMOXARIFADOORIGEM=2\n\r\n\r"
