@@ -6,7 +6,7 @@ Redmine::Plugin.register :redmine_issue_external_item do
   name 'Redmine Issue External Item Plugin'
   author 'Clairton Rodrigo Heinzen'
   description 'This plugin adds external items to Redmine issues.'
-  version '0.3.0'
+  version '0.3.1'
   url 'https://github.com/clairton/redmine_issue_external_item'
   author_url 'mailto:clairton.rodrigo@gmail.com'
 
