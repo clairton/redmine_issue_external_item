@@ -95,7 +95,7 @@ module RedmineIssueExternalItem
             out << "*HANDLE=@CP_REQUISICOESPAI@\n\r"
             out << "\n"
 
-            name = Rails.configuration.issue_external_item.export_dir + DateTime.now.strftime("%y%m%d%H%M%S%L") + ".att"
+            name = Rails.configuration.issue_external_item.export_dir + DateTime.now.strftime("%Y%m%d%H%M%S%L") + ".att"
 
             File.open(name, 'w+') { |file| file.write(out) }
           #end
