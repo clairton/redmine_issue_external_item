@@ -59,7 +59,21 @@ module RedmineIssueExternalItem
             out << "GRUPODEASSINATURAS=2\n\r\n\r"
             out << "\n\n"
 
+            agencia = 1
+            filial_agencia = agencia
+
             external_items.each do |item|
+                query = "SELECT UNIDADEMEDIDAESTOQUE as unidade, FAMILIA as familia FROM PD_PRODUTOS where handle = #{item.key}"
+
+                familia = nil
+                unidade = nil
+
+                Item.connection.exec_query(query).each do |result| 
+                  familia = result['familia']
+                  unidade = result['unidade']
+                  logger.debug "Retrieve familia: #{familia} and unidade: #{unidade} for #{item.key}"
+                end
+
                 out << "[CP_REQUISICOES]\n\r\n\r"
                 out << "@SERVICO=I\n\r\n\r"
                 out << "EMPRESA=1 \n\r\n\r"
@@ -67,16 +81,16 @@ module RedmineIssueExternalItem
                 out << "REQUISICAOPAI=@CP_REQUISICOESPAI@\n\r\n\r"
                 out << "NUMERO=\n\r\n\r"
                 out << "DATA="+start_date.strftime("%Y%m%d")+"\n\r\n\r"
-                out << "REQUISITANTE=AgenciaX\n\r\n\r"
+                out << "REQUISITANTE="+agencia.to_s+"\n\r\n\r"
                 out << "CENTROCUSTO=@HANDLE(1)"+"\n\r\n\r"
                 out << "PRAZO="+(due_date.nil? ? start_date : due_date).strftime("%Y%m%d")+"\n\r\n\r"
                 out << "PRODUTO="+item.key.to_s+"\n\r\n\r"
                 out << "QUANTIDADE="+item.quantity.to_s+"\n\r\n\r"
-                out << "FAMILIA=1\n\r\n\r"
+                out << "FAMILIA="+familia .to_s+"\n\r\n\r"
                 out << "STATUS=1\n\r\n\r"
                 out << "ALMOXARIFADO=2"
                 out << "TIPO=O\n\r\n\r"
-                out << "UNIDADE=1\n\r\n\r"
+                out << "UNIDADE="+unidade.to_s+"\n\r\n\r"
                 out << "ALMOXARIFADOORIGEM=2\n\r\n\r"
                 out << "OPERACAO=1068\n\r\n\r"
                 out << "TABTIPO=2\n\r\n\r"
@@ -85,7 +99,7 @@ module RedmineIssueExternalItem
                 out << "NUMEROORIGEM =\n\r\n\r"
                 out << "CONFIRMANTE=149\n\r\n\r"
                 out << "CONFIRMARATE="+(due_date.nil? ? start_date : due_date).strftime("%Y%m%d")+"\n\r\n\r"
-                out << "K_FILIALREQUISITANTE=1\n\r\n\r"
+                out << "K_FILIALREQUISITANTE="+filial_agencia.to_s+"\n\r\n\r"
                 out << "\n"
             end
 
