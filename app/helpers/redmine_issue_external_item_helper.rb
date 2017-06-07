@@ -4,7 +4,7 @@ module RedmineIssueExternalItemHelper
   def external_items_select_tag
 
     #TODO load query configuration by field
-    query = Rails.configuration.issue_external_item.query
+    query = Rails.configuration.issue_external_item_query
 
     options = content_tag('option')     	
 

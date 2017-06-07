@@ -1,7 +1,7 @@
 # Redmine Issue External Item Plugin
 
-[![Build Status](https://travis-ci.org/clairton/redmine_issue_external_item.svg?branch=master)](https://travis-ci.org/Restream/redmine_issue_external_item)
-[![Code Climate](https://codeclimate.com/github/clairton/redmine_issue_external_item/badges/gpa.svg)](https://codeclimate.com/github/Restream/redmine_issue_external_item)
+[![Build Status](https://travis-ci.org/clairton/redmine_issue_external_item.svg?branch=master)](https://travis-ci.org/clairton/redmine_issue_external_item)
+[![Code Climate](https://codeclimate.com/github/clairton/redmine_issue_external_item/badges/gpa.svg)](https://codeclimate.com/github/clairton/redmine_issue_external_item)
 
 This plugin enables you to add external items to Redmine issues. 
 
@@ -24,7 +24,7 @@ This plugin version is compatible only with Redmine 3.0 and later.
             
       Copy the plugin from GitHub using the following commands:
       
-            git clone https://github.com/Restream/redmine_issue_external_item.git plugins/redmine_issue_external_item
+            git clone https://github.com/clairton/redmine_issue_external_item.git plugins/redmine_issue_external_item
             
 2. Update the Gemfile.lock file by running the following commands:  
 
@@ -47,10 +47,8 @@ Put configuration in your enviroment file like config/environment/production.rb 
 ```ruby
 Rails.application.configure do
   ...
-  config.issue_external_item = ActiveSupport::OrderedOptions.new
-  config.issue_external_item.export_dir = '/tmp/'
   #must be key and description columns
-  config.issue_external_item.query = %{
+  config.issue_external_item_query = %{
     select 
       id as key, 
       name as description 
