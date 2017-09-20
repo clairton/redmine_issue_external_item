@@ -2,7 +2,6 @@ require_dependency 'issue'
 
 module RedmineIssueExternalItem
   module Patches
-
     module IssuePatch
 
       def self.included(base) # :nodoc:
@@ -11,13 +10,12 @@ module RedmineIssueExternalItem
           alias_method_chain :copy_from, :external_items
           has_many :external_items, class_name: 'IssueExternalItem', dependent: :destroy
         end
-
       end
 
       module InstanceMethods
         def copy_from_with_external_items(arg, options={})
           copy_from_without_external_items(arg, options)
-          issue          = arg.is_a?(Issue) ? arg : Issue.visible.find(arg)
+          issue = arg.is_a?(Issue) ? arg : Issue.visible.find(arg)
           self.external_items = issue.external_items.map { |cl| cl.dup }
           self
         end

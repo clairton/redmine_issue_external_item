@@ -1,10 +1,7 @@
 module RedmineIssueExternalItemHelper
 
   # Returns the select tag used to list products
-  def external_items_select_tag
-
-    #TODO load query configuration by field
-    query = Rails.configuration.issue_external_item_query
+  def external_items_select_tag(query)
 
     options = content_tag('option')     	
 
