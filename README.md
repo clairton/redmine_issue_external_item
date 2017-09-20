@@ -40,24 +40,18 @@ Now you should be able to see the plugin in **Administration > Custom Field > Is
 
 ## Usage
 
-Create a connection called "external_item_production" to retrieve items, PS: the query is static yet
+Create a connection called "external_item_production" to retrieve items, 
+
+PS: the query must be in custom field with columns named key and description for exempla
 
 Put configuration in your enviroment file like config/environment/production.rb as
 
-```ruby
-Rails.application.configure do
-  ...
-  #must be key and description columns
-  config.issue_external_item_query = %{
-    select 
-      id as key, 
-      name as description 
-    from 
-      projects
-  }
-  ...
-end
-
+```sql
+  select 
+    id as key, 
+    name as description 
+  from 
+    projects
 ```
  
 ## License

@@ -5,8 +5,8 @@ module RedmineIssueExternalItemHelper
 
     options = content_tag('option')     	
 
-    Item.find_by_sql(query).each do |item|
-      options << content_tag('option', item.description, value: item.key)
+    Item.connection.select_all(query).each do |item|
+      options << content_tag('option', item['description'], value: item['key'])
     end
 
     select_tag('new_external_item_options', options,  id: 'new_external_item_options', onchange: "fillInputExternalItemInput();")
