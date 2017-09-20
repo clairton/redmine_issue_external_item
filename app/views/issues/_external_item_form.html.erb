@@ -1,5 +1,9 @@
-<% formats = @issue.custom_field_values.collect { |v| v.custom_field.field_format } %>
-<% if formats.include? 'issue_external_items' %>
+<% 
+  custom_field_external_items = @issue.custom_field_values.select { |v| 
+    v.custom_field.field_format == 'issue_external_items' 
+  }.first.custom_field
+%>
+<% unless custom_field_external_items.nil?  %>
   <%= fields_for :issue, issue do |f| -%>
     <div class="tabular">
       <p id="issue_external_item_form">
@@ -9,7 +13,7 @@
         <%= text_field_tag 'new_external_item', '',
             id: 'add_external_item_input', type: 'hidden' %>
 
-        <%= external_items_select_tag %>
+        <%= external_items_select_tag custom_field_external_items.query %>
 
         <%= number_field_tag 'new_external_item_quantity', '',
             id: 'add_external_item_quantity_input' %>
