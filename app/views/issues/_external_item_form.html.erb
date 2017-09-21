@@ -1,7 +1,7 @@
 <% 
   custom_field_external_items = @issue.custom_field_values.select { |v| 
     v.custom_field.field_format == 'issue_external_items' 
-  }.first.custom_field
+  }.first.try :custom_field
 %>
 <% unless custom_field_external_items.nil?  %>
   <%= fields_for :issue, issue do |f| -%>
