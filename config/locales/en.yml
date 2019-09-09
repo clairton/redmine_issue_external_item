@@ -4,7 +4,10 @@ en:
   label_issue_external_items: External Items
   field_external_item: External Items
   label_external_item_save_log: Save changes to the issue log
+  label_external_item_done_ratio: Salvar automaticamente o chamado a Lista de Itens
   permission_view_external_items: View external items
+  permission_done_external_items: Alterar relação baseado em Lista de Itens
   permission_update_external_items: Edit external items
   permission_create_external_items: Create external items
   permission_delete_external_items: Delete external items
+  field_query: Query

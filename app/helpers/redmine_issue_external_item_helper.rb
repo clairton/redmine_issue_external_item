@@ -9,6 +9,6 @@ module RedmineIssueExternalItemHelper
       options << content_tag('option', item['description'], value: item['key'])
     end
 
-    select_tag('new_external_item_options', options,  id: 'new_external_item_options', onchange: "fillInputExternalItemInput();")
+    select_tag('new_external_item_options', options,  id: 'new_external_item_options', onchange: 'fillInputExternalItemInput();')
   end
 end

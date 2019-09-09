@@ -42,7 +42,7 @@ Now you should be able to see the plugin in **Administration > Custom Field > Is
 
 Create a connection called "external_item_production" to retrieve items, 
 
-PS: the query must be in custom field with columns named key and description for exempla
+PS: the query must be in custom field with columns named key and description for exemplo
 
 Put configuration in your enviroment file like config/environment/production.rb as
 
