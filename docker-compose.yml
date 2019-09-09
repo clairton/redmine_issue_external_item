@@ -1,0 +1,94 @@
+version: '3.7'
+services:
+  redmine3:
+    build:
+      context: ./
+      dockerfile: 3.Dockerfile
+    volumes:
+      - ./:/usr/src/redmine/plugins/redmine_issue_external_item
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      REDMINE_DB_ADAPTER: ${REDMINE_DB_ADAPTER}
+      REDMINE_DB_HOST: ${REDMINE_DB_HOST}
+      REDMINE_DB_PORT: ${REDMINE_DB_PORT}
+      REDMINE_DB_USERNAME: ${REDMINE_DB_USERNAME}
+      REDMINE_DB_PASSWORD: ${REDMINE_DB_PASSWORD}
+      REDMINE_DB_DATABASE: ${REDMINE_DB_DATABASE}
+
+      REDMINE_DB_ITEM_ADAPTER: ${REDMINE_DB_ITEM_ADAPTER}
+      REDMINE_DB_ITEM_HOST: ${REDMINE_DB_ITEM_HOST}
+      REDMINE_DB_ITEM_PORT: ${REDMINE_DB_ITEM_PORT}
+      REDMINE_DB_ITEM_USERNAME: ${REDMINE_DB_ITEM_USERNAME}
+      REDMINE_DB_ITEM_PASSWORD: ${REDMINE_DB_ITEM_PASSWORD}
+      REDMINE_DB_ITEM_DATABASE: ${REDMINE_DB_ITEM_DATABASE}
+    depends_on:
+      - mysql
+      - mssql
+
+  redmine4:
+    build:
+      context: ./
+      dockerfile: 4.Dockerfile
+    volumes:
+      - ./:/usr/src/redmine/plugins/redmine_issue_external_item
+    restart: always
+    ports:
+      - 4000:4000
+    environment:
+      REDMINE_DB_ADAPTER: ${REDMINE_DB_ADAPTER}
+      REDMINE_DB_HOST: ${REDMINE_DB_HOST}
+      REDMINE_DB_PORT: ${REDMINE_DB_PORT}
+      REDMINE_DB_USERNAME: ${REDMINE_DB_USERNAME}
+      REDMINE_DB_PASSWORD: ${REDMINE_DB_PASSWORD}
+      REDMINE_DB_DATABASE: ${REDMINE_DB_DATABASE}
+
+      REDMINE_DB_ITEM_ADAPTER: ${REDMINE_DB_ITEM_ADAPTER}
+      REDMINE_DB_ITEM_HOST: ${REDMINE_DB_ITEM_HOST}
+      REDMINE_DB_ITEM_PORT: ${REDMINE_DB_ITEM_PORT}
+      REDMINE_DB_ITEM_USERNAME: ${REDMINE_DB_ITEM_USERNAME}
+      REDMINE_DB_ITEM_PASSWORD: ${REDMINE_DB_ITEM_PASSWORD}
+      REDMINE_DB_ITEM_DATABASE: ${REDMINE_DB_ITEM_DATABASE}
+    depends_on:
+      - mysql
+      - mssql
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql:/var/lib/mysql
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'true'
+      MYSQL_USER: ${REDMINE_DB_USERNAME}
+      MYSQL_PASSWORD: ${REDMINE_DB_PASSWORD}
+      MYSQL_DATABASE: ${REDMINE_DB_DATABASE}
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    restart: always
+    environment: 
+      SA_PASSWORD: ${REDMINE_DB_ITEM_PASSWORD}
+      ACCEPT_EULA: 'Y'
+    ports:
+      - 1433:1433
+    volumes:
+      - ./data/mssql:/scripts/
+      - mssql:/var/opt/mssql
+    command:
+      - /bin/bash
+      - -c 
+      - |
+        /opt/mssql/bin/sqlservr &
+        sleep 30
+        for sql in /scripts/*.sql
+          do /opt/mssql-tools/bin/sqlcmd -U sa -P $$SA_PASSWORD -l 30 -e -i $$sql
+        done
+        sleep infinity
+
+volumes:
+  mysql:
+  mssql:

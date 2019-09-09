@@ -1,0 +1,16 @@
+production:
+  adapter: <%= ENV["REDMINE_DB_ADAPTER"] %>
+  database: <%= ENV["REDMINE_DB_DATABASE"] %>
+  host: <%= ENV["REDMINE_DB_HOST"] %>
+  port: <%= ENV["REDMINE_DB_PORT"] %>
+  username: <%= ENV["REDMINE_DB_USERNAME"] %>
+  password: <%= ENV["REDMINE_DB_PASSWORD"] %>
+  encoding: utf8
+
+external_item_production:
+  adapter: <%= ENV["REDMINE_DB_ITEM_ADAPTER"] %>
+  host: <%= ENV["REDMINE_DB_ITEM_HOST"] %>
+  port: <%= ENV["REDMINE_DB_ITEM_PORT"] %>
+  database: <%= ENV["REDMINE_DB_ITEM_DATABASE"] %>
+  username: <%= ENV["REDMINE_DB_ITEM_USERNAME"] %>
+  password: <%= ENV["REDMINE_DB_ITEM_PASSWORD"] %>
