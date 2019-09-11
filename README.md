@@ -9,7 +9,7 @@ The initial author of the plugin is [Kirill Bezrukov](http://www.redminecrm.com/
 
 ## Compatibility
 
-This plugin version is compatible only with Redmine 3.0 and later.
+This plugin version is compatible only with Redmine 3 and later.
 
 ## Installation
 

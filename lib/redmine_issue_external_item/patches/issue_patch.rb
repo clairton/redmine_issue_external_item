@@ -7,8 +7,8 @@ module RedmineIssueExternalItem
       def self.included(base) # :nodoc:
         base.send(:include, InstanceMethods)
         base.class_eval do
-          alias_method_chain :copy_from, :external_items
           has_many :external_items, class_name: 'IssueExternalItem', dependent: :destroy
+          alias_method :copy_from, :external_items
         end
       end
 

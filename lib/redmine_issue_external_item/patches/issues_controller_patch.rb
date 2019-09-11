@@ -4,7 +4,7 @@ module RedmineIssueExternalItem
       extend ActiveSupport::Concern
 
       included do
-        before_filter :include_redmine_issue_external_item_helper
+        before_action :include_redmine_issue_external_item_helper
       end
 
       def include_redmine_issue_external_item_helper
