@@ -3,6 +3,7 @@ module RedmineIssueExternalItem
   module Patches
     module CustomFieldPatch
       extend ActiveSupport::Concern
+      CustomField.safe_attributes :query
 
       included do
         validates :query, presence: true, if: :external_item?
